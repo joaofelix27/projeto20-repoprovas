@@ -15,3 +15,14 @@ export const createTest:controllersType = async (req,res) => {
     }
 
 }
+
+export const getTestByDiscipline:controllersType = async (req,res) => {
+    const result = await testsService.getTestByDiscipline()
+    
+    if (result) {
+    return res.status(200).send(result)
+    } else {
+        throw {type:"error", message:"It was not possible to get the tests by discipline"}
+    }
+
+}
