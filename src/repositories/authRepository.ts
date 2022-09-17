@@ -5,7 +5,7 @@ export async function findUnique (email:string){
     return await prisma.users.findUnique({
         where: {
           email: email
-        },
+        }
       });
 }
 

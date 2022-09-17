@@ -17,7 +17,12 @@ export const createTest: testServiceType = async (testData) => {
   return await testsRepository.createTest(testData)
 };
 
-export const getTestByDiscipline = async () => {
+export const getTestByDisciplines = async () => {
 
   return await testsRepository.getTestByDiscipline()
+};
+
+export const getTestByTeachers = async () => {
+
+  return await testsRepository.getTestByTeachers()
 };

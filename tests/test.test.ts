@@ -84,8 +84,13 @@ describe('POST /tests/create', () => {
         const resultLogin = await agent.post('/sign-in').send({email:user.email,password:user.password})
         const correctSchemaTest = testFactory()
         const result = await agent.post('/tests/create').send({...correctSchemaTest,categoryId:1,teacherDisciplineId:1}).set({Authorization:`Bearer ${resultLogin.text}`})
-
+        const created =await prisma.tests.findFirst({
+            where: {
+              name:correctSchemaTest.name
+            }
+          });
         expect(result.status).toBe(201)
+        expect(created).not.toBeNull()
     });
 })
 
