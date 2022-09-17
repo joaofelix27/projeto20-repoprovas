@@ -37,7 +37,6 @@ describe('POST /sign-up', () => {
     it("Expected to return 409 when the user try to sign-up with an email that is already on the database", async () => {
         const user = userFactory()
         const firstResult=await  agent.post('/sign-up').send(user)
-
         const result = await agent.post('/sign-up').send(user)
 
         expect(result.status).toBe(409)
