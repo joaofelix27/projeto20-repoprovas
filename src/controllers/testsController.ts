@@ -6,7 +6,7 @@ import { ITestData } from '../types/testTypes';
 export const createTest:controllersType = async (req,res) => {
     const testData: ITestData = req.body
     const {name,pdfUrl,categoryId,teacherDisciplineId}=testData
-    const result = await testsService.createTest(testData)
+    const result = await testsService.createTest(testData,)
     
     if (result) {
     return res.sendStatus(201)

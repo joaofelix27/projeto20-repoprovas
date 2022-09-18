@@ -12,3 +12,7 @@ export async function findUnique (email:string){
 export async function createRegister (register:IUsersData){
     return await prisma.users.create({ data: {...register} });
 }
+
+export async function findAllUsers (){
+  return await prisma.users.findMany();
+}

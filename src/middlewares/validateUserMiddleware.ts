@@ -16,6 +16,7 @@ export default async function validateUser(req:Request, res:Response, next:NextF
     }
     // se tudo estiver ok, salva no request para uso posterior
     res.locals.userId = decoded.id;
+    res.locals.email = decoded.email
     next();
   });
 }

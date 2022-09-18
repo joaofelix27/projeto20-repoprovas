@@ -75,45 +75,49 @@ export async function getTestByDiscipline(){
 //         },
 //       });
 //         }
-export async function getTestByTeachers(){
-    return await prisma.teachersDisciplines.findMany({
-        distinct:['teacherId'],
-        select:{
-            teachers:{
-                select:{
-                    name:true,
-                    teachersDisciplines:{distinct:['teacherId'],
-                        select:{
-                           tests:{distinct:['categoryId'],
-                                select:{
-                                    categories:{
-                                        select:{
-                                            name:true,
-                                            tests:{
-                                                select:{
-                                                    id:true,
-                                                    name: true,
-                                                    teachersDisciplines:{
-                                                        select:{
-                                                            disciplines:{
-                                                                select:{
-                                                                    name:true
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+// export async function getTestByTeachers(){
+//     return await prisma.teachersDisciplines.findMany({
+//         distinct:['teacherId'],
+//         select:{
+//             teachers:{
+//                 select:{
+//                     name:true,
+//                     teachersDisciplines:{distinct:['teacherId'],
+//                         select:{
+//                            tests:{distinct:['categoryId'],
+//                                 select:{
+//                                     categories:{
+//                                         select:{
+//                                             name:true,
+//                                             tests:{
+//                                                 select:{
+//                                                     id:true,
+//                                                     name: true,
+//                                                     teachersDisciplines:{
+//                                                         select:{
+//                                                             disciplines:{
+//                                                                 select:{
+//                                                                     name:true
+//                                                                 }
+//                                                             }
+//                                                         }
+//                                                     }
+//                                                 }
+//                                             }
+//                                         }
+//                                     }
+//                                 }
+//                             }
+//                         }
+//                     }
                     
-                }
-            }
+//                 }
+//             }
            
-        }
-    })
+//         }
+//     })
+// }
+
+export async function getTestByTeachers () {
+    return await prisma.$queryRaw`SELECT * FROM tests`
 }
