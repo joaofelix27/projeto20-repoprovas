@@ -58,6 +58,14 @@ describe('POST /tests/create', () => {
         expect(result.status).toBe(401)
     });
 
+    it('Expected to return 401 when not sending a valid token', async () => {
+        const correctSchemaTest = testFactory()
+        const token =''
+        const result = await agent.post('/tests/create').send(correctSchemaTest).set({Authorization:`Bearer ${token}`})
+
+        expect(result.status).toBe(401)
+    });
+
     it('Expected to return 404 when sending an incorrect categoryId', async () => {
         const user = userFactory()
         await supertest(app).post('/sign-up').send(user)
