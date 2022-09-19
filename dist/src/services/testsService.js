@@ -66,7 +66,7 @@ const createTest = (testData) => __awaiter(void 0, void 0, void 0, function* () 
             text: "Eae",
             html: `<h1>A seguinte prova foi adicionada: ${createTest.name} ${category.name} ${year} - ${createTest.pdfUrl} (${discipline.name})</h1>`
         };
-        mail_1.default.send(emailSend).then(response => console.log("Emails Enviados")).catch((error) => console.log(error.message));
+        mail_1.default.send(emailSend).then(response => "ok").catch((error) => "erro");
     });
     return createTest;
 });

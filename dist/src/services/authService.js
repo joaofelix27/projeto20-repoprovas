@@ -56,7 +56,11 @@ const login = ({ email, password }) => __awaiter(void 0, void 0, void 0, functio
     if (!emailExists) {
         throw { type: "unauthorized", message: "It was not possible to login" };
     }
+    if (!(emailExists === null || emailExists === void 0 ? void 0 : emailExists.password)) {
+        throw { type: "unauthorized", message: "You are a github user, try login via github" };
+    }
     const verifyPassword = bcrypt_1.default.compareSync(password, emailExists === null || emailExists === void 0 ? void 0 : emailExists.password);
+    console.log(verifyPassword);
     if (!verifyPassword)
         throw { type: "unauthorized", message: "It was not possible to login" };
     const returnToken = Object.assign({}, emailExists);

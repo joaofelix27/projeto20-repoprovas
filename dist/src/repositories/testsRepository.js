@@ -57,82 +57,29 @@ function getTestByDiscipline() {
     });
 }
 exports.getTestByDiscipline = getTestByDiscipline;
-// export async function getTestByTeachers(){
-//     return  await prisma.teachers.findMany({
-//         include: {
-//           teachersDisciplines: {
-//             select: {
-//               tests: {
-//                 distinct: ["categoryId"],
-//                 select: {
-//                   categories: {
-//                     select: {
-//                       id: true,
-//                       name: true,
-//                       tests: {
-//                         select: {
-//                             id:true,
-//                           name: true,
-//                           pdfUrl: true,
-//                           teachersDisciplines: {
-//                             select: {
-//                               disciplines: true,
-//                             },
-//                           },
-//                         },
-//                       },
-//                     },
-//                   },
-//                 },
-//               },
-//             },
-//           },
-//         },
-//       });
-//         }
-// export async function getTestByTeachers(){
-//     return await prisma.teachersDisciplines.findMany({
-//         distinct:['teacherId'],
-//         select:{
-//             teachers:{
-//                 select:{
-//                     name:true,
-//                     teachersDisciplines:{distinct:['teacherId'],
-//                         select:{
-//                            tests:{distinct:['categoryId'],
-//                                 select:{
-//                                     categories:{
-//                                         select:{
-//                                             name:true,
-//                                             tests:{
-//                                                 select:{
-//                                                     id:true,
-//                                                     name: true,
-//                                                     teachersDisciplines:{
-//                                                         select:{
-//                                                             disciplines:{
-//                                                                 select:{
-//                                                                     name:true
-//                                                                 }
-//                                                             }
-//                                                         }
-//                                                     }
-//                                                 }
-//                                             }
-//                                         }
-//                                     }
-//                                 }
-//                             }
-//                         }
-//                     }
-//                 }
-//             }
-//         }
-//     })
-// }
 function getTestByTeachers() {
     return __awaiter(this, void 0, void 0, function* () {
-        return yield prisma_1.default.$queryRaw `SELECT * FROM tests`;
+        return yield prisma_1.default.teachers.findMany({
+            where: {},
+            distinct: ["name"],
+            select: {
+                name: true,
+                teachersDisciplines: {
+                    select: {
+                        disciplines: { select: { name: true } },
+                        tests: {
+                            select: {
+                                id: true,
+                                name: true,
+                                pdfUrl: true,
+                                categories: { select: { name: true } },
+                            },
+                            orderBy: { categoryId: "desc" },
+                        },
+                    },
+                },
+            },
+        });
     });
 }
 exports.getTestByTeachers = getTestByTeachers;
