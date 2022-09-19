@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv'
 import { users } from "@prisma/client"
-import { authServiceType } from '../types/authTypes';
+import { authServiceType, IUsersData } from '../types/authTypes';
 dotenv.config()
 
 
@@ -17,13 +17,26 @@ export const register: authServiceType = async ({email, password}) => {
 };
 
 export const login: authServiceType= async ({email, password}) => {
-  const emailExists=<users>await authRepository.findUnique(email);
+  const emailExists=<IUsersData>await authRepository.findUnique(email);
   if(!emailExists){
     throw {type:"unauthorized", message:"It was not possible to login"}
   }
   const verifyPassword=bcrypt.compareSync(password,emailExists?.password)
-  const id = emailExists.id
   if (!verifyPassword) throw {type:"unauthorized", message:"It was not possible to login"}
+  const returnToken: Partial<users>= {... emailExists}
+  delete returnToken?.password;
+  const secret:string=(process.env.SECRET)?.toString() || "Secret" ;
+  const token= jwt.sign(returnToken, secret, {
+    expiresIn: "30d" 
+  });
+  return token
+};
+
+export const gitHubLogin: authServiceType= async ({email}) => {
+  const emailExists=<users>await authRepository.findUnique(email);
+  if(!emailExists){
+    await authRepository.createRegisterFromGitHub(email)
+  }
   const returnToken: Partial<users>= {... emailExists}
   delete returnToken?.password;
   const secret:string=(process.env.SECRET)?.toString() || "Secret" ;

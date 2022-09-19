@@ -38,10 +38,8 @@ describe('POST /sign-up', () => {
         const user = userFactory()
         await agent.post('/sign-up').send(user) 
 
-        setTimeout(async () => {
           const result = await agent.post('/sign-up').send(user)
            expect(result.status).toBe(409)
-        },1000)
         
 
        

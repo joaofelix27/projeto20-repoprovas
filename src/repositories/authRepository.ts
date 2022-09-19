@@ -13,6 +13,10 @@ export async function createRegister (register:IUsersData){
     return await prisma.users.create({ data: {...register} });
 }
 
+export async function createRegisterFromGitHub (email:string){
+  return await prisma.users.create({ data: {email} });
+}
+
 export async function findAllUsers (){
   return await prisma.users.findMany();
 }

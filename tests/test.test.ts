@@ -106,3 +106,19 @@ afterAll(async () => {
     await prisma.$executeRaw`TRUNCATE TABLE "users"`
     await prisma.$disconnect();
 });
+
+// it('Expected to return 201 when all the data needed is correct and the test is created', async () => {
+//     const user = userFactory()
+//     await supertest(app).post('/sign-up').send({email:"joaofelix27@gmail.com",password:"12345678910",confirmedPassword:"12345678910"})
+//     const resultLogin = await agent.post('/sign-in').send({email:"joaofelix27@gmail.com",password:"12345678910"})
+//     console.log("TESTE",resultLogin.text)
+//     const correctSchemaTest = testFactory()
+//     const result = await agent.post('/tests/create').send({...correctSchemaTest,categoryId:1,teacherDisciplineId:1}).set({Authorization:`Bearer ${resultLogin.text}`})
+//     const created =await prisma.tests.findFirst({
+//         where: {
+//           name:correctSchemaTest.name
+//         }
+//       });
+//     expect(result.status).toBe(201)
+//     expect(created).not.toBeNull()
+// });

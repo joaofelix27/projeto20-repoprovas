@@ -2,7 +2,10 @@ import { users} from "@prisma/client"
 import { Request,Response } from "express";
 
 
-export type IUsersData = Omit<users, 'id'>;
+export type IUsersData = {
+  email:string,
+  password:string
+}
 
 export type authServiceType =(
    authData:IUsersData 

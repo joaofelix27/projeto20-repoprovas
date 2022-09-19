@@ -8,5 +8,6 @@ const usersRouter= Router();
 
 usersRouter.post("/sign-up",validateSchema(signUpSchema),authControllers.register)
 usersRouter.post("/sign-in",validateSchema(signInSchema),authControllers.login)
+usersRouter.post("/sign-in/github",authControllers.gitHubLogin)
 
 export default usersRouter;
