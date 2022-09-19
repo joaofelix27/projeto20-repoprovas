@@ -24,7 +24,7 @@ export const createTest: testServiceType = async (testData) => {
     const createTest =  await testsRepository.createTest(testData)
     const findUsers =  await authRepository.findAllUsers()
 
-      findUsers.forEach ( value => {
+      findUsers.forEach ( async value => {
       const emailSend= {
         to:value.email,
         from:'joao_felix_@hotmail.com',
@@ -32,7 +32,7 @@ export const createTest: testServiceType = async (testData) => {
         text:"Eae",
         html:`<h1>A seguinte prova foi adicionada: ${createTest.name} ${category.name} ${year} - ${createTest.pdfUrl} (${discipline.name})</h1>`
       }
-      sgMail.send(emailSend).then(response => console.log("Emails Enviados")).catch((error)=>console.log(error.message))
+      await sgMail.send(emailSend)
     })
   
   return createTest
