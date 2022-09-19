@@ -21,7 +21,11 @@ export const login: authServiceType= async ({email, password}) => {
   if(!emailExists){
     throw {type:"unauthorized", message:"It was not possible to login"}
   }
+  if(!emailExists?.password){
+    throw {type:"unauthorized", message:"You are a github user, try login via github"}
+  }
   const verifyPassword=bcrypt.compareSync(password,emailExists?.password)
+  console.log(verifyPassword)
   if (!verifyPassword) throw {type:"unauthorized", message:"It was not possible to login"}
   const returnToken: Partial<users>= {... emailExists}
   delete returnToken?.password;

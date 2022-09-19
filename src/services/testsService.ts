@@ -27,7 +27,7 @@ export const createTest: testServiceType = async (testData) => {
       findUsers.forEach ( value => {
       const emailSend= {
         to:value.email,
-        from:'joaofelix27@gmail.com',
+        from:'joao_felix_@hotmail.com',
         subject:'Prova',
         text:"Eae",
         html:`<h1>A seguinte prova foi adicionada: ${createTest.name} ${category.name} ${year} - ${createTest.pdfUrl} (${discipline.name})</h1>`
