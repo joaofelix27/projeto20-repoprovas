@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "tsc && npx prisma migrate deploy",
     "test": "dotenv -e .env.test prisma migrate dev && dotenv -e .env.test jest --no-cache -- --i",
-    "start": "ts-node ./src/server.ts",
+    "start": "node ./dist/src/server.js",
     "dev": "nodemon ./src/server.ts",
     "prismatest": "dotenv -e .env.test npx prisma studio"
   },
